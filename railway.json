@@ -1,0 +1,33 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "startCommand": "bash start.sh",
+    "restartPolicyType": "ON_FAILURE"
+  },
+  "variables": {
+    "LLM_PROVIDER": {
+      "description": "Which LLM provider to use? (ex: openai, anthropic, openrouter)",
+      "defaultValue": "openrouter",
+      "required": true
+    },
+    "LLM_MODEL": {
+      "description": "Which model to use? (ex: gpt-5.1, moonshotai/kimi-k2.5)",
+      "required": true
+    },
+    "API_KEY": {
+      "description": "Your API key for the chosen provider",
+      "required": true
+    },
+    "TELEGRAM_BOT_TOKEN": {
+      "description": "Your bot's token generated in Telegram's BotFather",
+      "required": true
+    },
+    "TELEGRAM_ID": {
+        "description": "your Telegram account's ID",
+        "required": true
+    }
+  }
+}
