@@ -7,7 +7,7 @@ RUN apt-get update && \
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends nodejs && \
+    apt-get install -y --no-install-recommends nodejs gettext-base dos2unix && \
     apt-get purge -y gnupg && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
@@ -15,8 +15,9 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Install Python dependencies first (cached layer)
-COPY pyproject.toml README.md LICENSE start.sh ./
-RUN mkdir -p nanobot bridge && touch nanobot/__init__.py && \
+COPY pyproject.toml README.md LICENSE start.sh config.json ./
+RUN dos2unix start.sh && chmod +x start.sh && \
+    mkdir -p nanobot bridge && touch nanobot/__init__.py && \
     uv pip install --system . && \
     rm -rf nanobot bridge
 

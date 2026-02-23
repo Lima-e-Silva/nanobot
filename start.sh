@@ -7,27 +7,14 @@ mkdir -p "$CONFIG_DIR"
 
 echo "🔧 Creating config.json..."
 
-cat <<EOF > "$CONFIG_FILE"
-{
-    "providers": {
-        "${LLM_PROVIDER:-openai}": {
-            "api_key": "${API_KEY}"
-        }
-    },
-    "agents": {
-        "defaults": {
-            "model": "${LLM_MODEL:-gpt-4o-mini}"
-        }
-    },
-    "channels": {
-        "telegram": {
-            "enabled": true,
-            "token": "${TELEGRAM_BOT_TOKEN}",
-            "allowFrom": ["${TELEGRAM_ID}"]
-        }
-    }
-}
-EOF
+LLM_PROVIDER="${LLM_PROVIDER:-openrouter}"
+LLM_MODEL="${LLM_MODEL:-moonshotai/kimi-k2.5}"
+API_KEY="${API_KEY}"
+TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN}"
+TELEGRAM_ID="${TELEGRAM_ID}"
+export LLM_PROVIDER LLM_MODEL API_KEY TELEGRAM_BOT_TOKEN TELEGRAM_ID
+
+envsubst < /app/config.json > "$CONFIG_FILE"
 
 echo "✅ Configuration created successfully!"
  

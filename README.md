@@ -34,6 +34,17 @@ Configure these environment variables in your Railway project:
 - `TELEGRAM_BOT_TOKEN`: Your bot's token generated in Telegram's BotFather
 - `TELEGRAM_ID`: Your Telegram account's ID (found in Telegram settings, without the @ symbol)
 
+<h2>📁 Custom Configuration</h2>
+
+The `config.json` file is now a **template** that you can edit directly. At runtime, environment variables (e.g., `$API_KEY`, `$LLM_MODEL`) are substituted into it via `envsubst` in `start.sh`.
+
+**To add custom configurations:**
+- Edit `config.json` before deploying.
+- Enable other channels: e.g., set `"discord": {"enabled": true, "token": "$DISCORD_TOKEN", "allowFrom": ["123"]}`.
+- Override defaults: Add custom `agents.defaults.model`, `tools`, etc.
+
+Secrets stay in env vars (injected by Railway), config structure is version-controlled and editable.
+
 <h2>🚀 Quick Start</h2>
 
 1. **Deploy on Railway** — Click the button above
